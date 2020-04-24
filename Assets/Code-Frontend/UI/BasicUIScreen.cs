@@ -1,8 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BasicUIScreen : MonoBehaviour
+public abstract class BasicUIScreen : MonoBehaviour
 {
 
+    public abstract void FillText();
+
+    void Awake()
+    {
+        FillText();
+    }
 }

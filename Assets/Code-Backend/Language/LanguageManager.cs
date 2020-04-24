@@ -42,7 +42,7 @@ public class LanguageManager : MonoBehaviour
     {
         foreach (XmlNode language in library)
         {
-            if(language.Name == SaveFile.GetInstance().MetaData.language.ToString())
+            if(language["Name"].InnerText == SaveFile.GetInstance().MetaData.language.ToString())
             {
                 XmlNodeList dictionary = language.ChildNodes;
                 foreach (XmlNode word in dictionary)
@@ -54,6 +54,6 @@ public class LanguageManager : MonoBehaviour
                 }
             }
         }
-        throw new NotImplementedException("ID: " + id + "Does not have a word implemented in language" + SaveFile.GetInstance().MetaData.language.ToString());
+        throw new NotImplementedException("ID: " + id + " Does not have a word implemented in the language " + SaveFile.GetInstance().MetaData.language.ToString());
     }
 }

@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public List<BasicUIScreen> screens = null;
+    public BasicUIScreen initScreen;
     private BasicUIScreen currentScreen;
 
 
@@ -17,7 +16,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentScreen = screens[0];
+        currentScreen = initScreen;
         ActivateScreen(currentScreen);
     }
     #endregion
@@ -26,6 +25,7 @@ public class UIManager : MonoBehaviour
     {
         currentScreen.gameObject.SetActive(false);
         screen.gameObject.SetActive(true);
+        screen.FillText();
         currentScreen = screen;
     }
 }

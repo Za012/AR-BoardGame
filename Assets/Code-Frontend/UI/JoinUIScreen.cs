@@ -16,4 +16,8 @@ public class JoinUIScreen : BasicUIScreen
 
         joinButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(joinButton.name);
     }
+    public override void HandleError(string errorName)
+    {
+        throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
+    }
 }

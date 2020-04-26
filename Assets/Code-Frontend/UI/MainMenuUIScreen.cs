@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class MainMenuUIScreen : BasicUIScreen
 {
@@ -23,5 +20,10 @@ public class MainMenuUIScreen : BasicUIScreen
         createButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(createButton.name);
         donateButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(donateButton.name);
         screenLabel.text = LanguageManager.Instance.GetWord(screenLabel.name);
+    }
+
+    public override void HandleError(string errorName)
+    {
+        throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
     }
 }

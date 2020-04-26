@@ -19,13 +19,18 @@
 		
 		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
 		
-		<ScreenLabelGameRoom>Room id</ScreenLabelGameRoom>
+		<ScreenLabelGameRoom>Room id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Invite your friends using the room number!</RoomDescriptionText>
-		<PlayerListTitle>Players number/maxnum</PlayerListTitle>
+		<PlayerListTitle>Players </PlayerListTitle>
 		<StartGameButton>Start Game</StartGameButton>
 		
 		<ReadyButton>Ready!</ReadyButton>
 		
+				<!-- ERRORS -->
+		<NoPlayerName></NoPlayerName>
+		<Disconnected></Disconnected>
+		<RoomNotExist></RoomNotExist>
+		<CreateRoomFail></CreateRoomFail>
 	</Language>
 	
 	<Language>
@@ -45,12 +50,18 @@
 		
 		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
 		
-		<ScreenLabelGameRoom>Kamer id</ScreenLabelGameRoom>
+		<ScreenLabelGameRoom>Kamer id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Nodig je vrienden uit met het kamernummer!</RoomDescriptionText>
-		<PlayerListTitle>Spelers number/maxnum</PlayerListTitle>
+		<PlayerListTitle>Spelers </PlayerListTitle>
 		<StartGameButton>Begin Spel</StartGameButton>
 		
 		<ReadyButton>Klaar!</ReadyButton>
+		
+				<!-- ERRORS -->
+		<NoPlayerName></NoPlayerName>
+		<Disconnected></Disconnected>
+		<RoomNotExist></RoomNotExist>
+		<CreateRoomFail></CreateRoomFail>
 	</Language>
 	
 </Languages>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,5 +26,10 @@ public class UIManager : MonoBehaviour
         screen.gameObject.SetActive(true);
         screen.FillText();
         currentScreen = screen;
+    }
+
+    public void ActivateErrorScreen(string errorName)
+    {
+        currentScreen.HandleError(errorName);
     }
 }

@@ -4,13 +4,13 @@ using Photon.Realtime;
 
 public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 {
-    public BasicUIScreen hostUIScreen;
-    public BasicUIScreen clientUIScreen;
+    public GameRoomUIScreen hostUIScreen;
+    public GameRoomUIScreen clientUIScreen;
     public string PlayerName { get; set; }
 
     public void Start()
     {
-        PlayerName = "[GameMaster]Plez";
+        PlayerName = "[GameMaster]Lissy";
     }
 
     // MASTER CONNECTIONS //
@@ -23,7 +23,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.NickName = PlayerName;
 
-        //PhotonNetwork.ConnectToMaster(ip,port,appid); //manual connection
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();           //automatic connection based on the config file in Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
         return true;
     }

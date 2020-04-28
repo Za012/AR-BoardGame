@@ -4,9 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class InitGame : MonoBehaviour
 {
+    private InitGame Instance;
     private void Awake()
     {
+        if (Instance != null)
+            return;
+            
+        Instance = this;
+
         StartCoroutine(LoadGame());
+        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator LoadGame()
@@ -14,10 +21,6 @@ public class InitGame : MonoBehaviour
         Debug.Log("Loading...");
         SceneManager.LoadScene(
             "UI", LoadSceneMode.Additive);
-        /* SceneManager.LoadScene(
-             "AREngine", LoadSceneMode.Additive);
-         SceneManager.LoadScene(
-             "BoardGame", LoadSceneMode.Additive);*/
         yield return null;
         Debug.Log("Loaded.");
         Init();

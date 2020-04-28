@@ -7,9 +7,6 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlayingBoardPlacement : MonoBehaviour
 {
-
-    public IBoardGame boardGame = null;
-
     private ARRaycastManager arRaycastManager;
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
     private Vector2 touchPosition;
@@ -18,8 +15,10 @@ public class PlayingBoardPlacement : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("AREngine Starting up..");
         arRaycastManager = GetComponent<ARRaycastManager>();
         touchPosition = default;
+        Debug.Log("AREngine Online");
     }
 
     private bool TryGetTouchPosition(out Vector2 touchPosition)

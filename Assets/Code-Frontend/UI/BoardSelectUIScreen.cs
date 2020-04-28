@@ -1,4 +1,5 @@
 ﻿
+using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardSelectUIScreen : BasicUIScreen
@@ -16,5 +17,10 @@ public class BoardSelectUIScreen : BasicUIScreen
     public override void HandleError(string errorName)
     {
         throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
+    }
+    public void OnClickTest()
+    {
+        Game.CURRENTGAME = GameObject.Find("TestBoardGame").GetComponent<TestBoardGame>(); 
+        Game.NETWORK.OnClickCreateRoom();
     }
 }

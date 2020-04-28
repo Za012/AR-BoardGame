@@ -907,12 +907,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1444569143}
-        m_MethodName: ActivateScreen
-        m_Mode: 2
+      - m_Target: {fileID: 814098990}
+        m_MethodName: OnStartGameClick
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 899450224}
-          m_ObjectArgumentAssemblyTypeName: BasicUIScreen, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1987,7 +1987,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 17.799988, y: -11.100021}
+  m_AnchoredPosition: {x: 17.799988, y: -11.100037}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &592104524
@@ -2958,11 +2958,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f03ec4ea6ba6dc4ab87f7b4fe44d627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerListTitle: {fileID: 804696688}
+  playerList: {fileID: 1514652978}
   screenLabel: {fileID: 972567160}
   returnText: {fileID: 678868935}
   roomDescriptionText: {fileID: 497159225}
-  playerListTitle: {fileID: 804696688}
-  playerList: {fileID: 1514652978}
   startGameButton: {fileID: 176859463}
 --- !u!114 &814098991
 MonoBehaviour:
@@ -3210,7 +3210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3497,7 +3497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 17.799988, y: -11.100021}
+  m_AnchoredPosition: {x: 17.799988, y: -11.100037}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1133561144
@@ -3789,12 +3789,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1444569143}
-        m_MethodName: ActivateScreen
-        m_Mode: 2
+      - m_Target: {fileID: 1707802691}
+        m_MethodName: OnReadyClick
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 899450224}
-          m_ObjectArgumentAssemblyTypeName: BasicUIScreen, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4604,8 +4604,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 25837264}
-        m_MethodName: OnClickCreateRoom
+      - m_Target: {fileID: 1590817855}
+        m_MethodName: OnClickTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4950,6 +4950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initScreen: {fileID: 136129151}
+  gameScreen: {fileID: 899450224}
 --- !u!1 &1482713561
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,11 +5628,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9609826844e2d48a3e322e9fea38aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerListTitle: {fileID: 2147145670}
+  playerList: {fileID: 1328860802}
   screenLabel: {fileID: 502215670}
   returnText: {fileID: 992588514}
   roomDescriptionText: {fileID: 775240611}
-  playerListTitle: {fileID: 2147145670}
-  playerList: {fileID: 1328860802}
   readyButton: {fileID: 1188041072}
 --- !u!114 &1707802692
 MonoBehaviour:
@@ -5713,6 +5714,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1716835332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1716835334}
+  - component: {fileID: 1716835333}
+  m_Layer: 0
+  m_Name: TestBoardGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1716835333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716835332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66b10fab5bcd543429d1182556e317b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1716835334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716835332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 470, y: 315, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774939745
 GameObject:
   m_ObjectHideFlags: 0
@@ -6784,6 +6828,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091072871}
   m_CullTransparentMesh: 0
+--- !u!1 &2146862863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2146862865}
+  - component: {fileID: 2146862864}
+  - component: {fileID: 2146862866}
+  m_Layer: 0
+  m_Name: PhotonRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2146862864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146862863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdd2461dc2e8a044b9159efa07c3556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 2146862866}
+  hostScreen: {fileID: 814098990}
+  clientScreen: {fileID: 1707802691}
+--- !u!4 &2146862865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146862863}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146862866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146862863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 999
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2147145668
 GameObject:
   m_ObjectHideFlags: 0

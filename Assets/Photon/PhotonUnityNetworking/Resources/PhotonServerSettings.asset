@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: d85f3ae7-904f-4c7b-8e80-76c68c1c77cd
-    AppIdChat: 
+    AppIdChat: 7ce7aff7-90fa-41d4-9380-306d4e171688
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
@@ -25,18 +25,21 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: eu
   PunLogging: 2
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - OnHitRpc
+  - 
+  - 
+  - 
   - ClickRpc
   - DestroyRpc
+  - RPC_CreatePlayer
+  - RPC_PlayerLoaded
+  - RPC_PlayerReady
+  - RPC_RoomBoardgame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1

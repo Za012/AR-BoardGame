@@ -1,23 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestBoardGame : MonoBehaviour, IBoardGame 
 {
+    public byte Id { get; set; }
+
+    public int GetMaxPlayers()
+    {
+        return 4;
+    }
+
+    public string GetScene()
+    {
+        return "BoardGame"; 
+    }
+
+    public void InstantiateScene()
+    {
+        SceneManager.LoadScene("AREngine", LoadSceneMode.Additive);
+        UIManager.Instance.GameMode();
+    }
+
     public void PlaceBoard(Pose hitPose)
     {
+        Debug.Log("Placing board");
         Instantiate(gameObject, hitPose.position, hitPose.rotation);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public static object Deserialize(byte[] data)
     {
-        
+        var result = new TestBoardGame();
+        result.Id = data[0];
+        return result;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static byte[] Serialize(object customType)
     {
-        
+        var c = (IBoardGame)customType;
+        return new byte[] { c.Id };
     }
 }

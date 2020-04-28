@@ -8,7 +8,7 @@ public class GameRoomHostUIScreen : GameRoomUIScreen
     public Text screenLabel;
     public Text returnText;
     public Text roomDescriptionText;
-
+    public Text boardGameName;
 
     public Button startGameButton;
 
@@ -18,6 +18,7 @@ public class GameRoomHostUIScreen : GameRoomUIScreen
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
         roomDescriptionText.text = LanguageManager.Instance.GetWord(roomDescriptionText.name);
         startGameButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(startGameButton.name);
+        boardGameName.text = Game.CURRENTGAME.GetGameName();
 
         startGameButton.interactable = false;
     }

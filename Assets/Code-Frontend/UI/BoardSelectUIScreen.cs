@@ -20,7 +20,7 @@ public class BoardSelectUIScreen : BasicUIScreen
     }
     public void OnClickTest()
     {
-        Game.CURRENTGAME = GameObject.Find("TestBoardGame").GetComponent<TestBoardGame>(); 
+        Game.CURRENTGAME = GameObject.Find("GooseBoardGame").GetComponent<GooseBoardGame>(); 
         Game.NETWORK.OnClickCreateRoom();
     }
 }

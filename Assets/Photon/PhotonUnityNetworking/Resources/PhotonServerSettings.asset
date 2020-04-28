@@ -40,6 +40,12 @@ MonoBehaviour:
   - RPC_PlayerLoaded
   - RPC_PlayerReady
   - RPC_RoomBoardgame
+  - Deserialize
+  - BeginGame
+  - PlacedBoard
+  - Play
+  - PlayerTurn
+  - SyncronizePlayerList
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

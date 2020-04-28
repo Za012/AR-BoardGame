@@ -18,7 +18,6 @@ public abstract class GameRoomUIScreen : BasicUIScreen
         throw new NotImplementedException();
     }
 
-    public Dictionary<Player, bool> playersInRoom = new Dictionary<Player, bool>();
     public void DisconnectAndReturn()
     {
         PhotonNetwork.Disconnect();
@@ -30,7 +29,7 @@ public abstract class GameRoomUIScreen : BasicUIScreen
     {
         playerList.text = "";
         playerListTitle.text = LanguageManager.Instance.GetWord(playerListTitle.name) + PhotonNetwork.PlayerList.Length + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
-        foreach (KeyValuePair<Player, bool> pair in playersInRoom)
+        foreach (KeyValuePair<Player, bool> pair in Game.CURRENTROOM.playersInRoom)
         {
             if (pair.Value)
             {
@@ -42,23 +41,5 @@ public abstract class GameRoomUIScreen : BasicUIScreen
             }
 
         }
-    }
-
-    public void RemovePlayer(Player player)
-    {
-        playersInRoom.Remove(player);
-        UpdatePlayerList();
-    }
-
-    public void SetPlayerReady(Player player)
-    {
-        playersInRoom[player] = true;
-        UpdatePlayerList();
-    }
-
-    public void AddPlayer(Player player)
-    {
-        playersInRoom.Add(player, false);
-        UpdatePlayerList();
     }
 }

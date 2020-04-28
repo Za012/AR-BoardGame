@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private int playersReadyToStart;
     private int playersInGame;
+
+    public Dictionary<Player, bool> playersInRoom = new Dictionary<Player, bool>();
 
     private void Awake()
     {
@@ -56,6 +59,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         view = GetComponent<PhotonView>();
         // Registration of Boardgames  | Every boardgame must be registered.
         PhotonPeer.RegisterType(typeof(TestBoardGame), (byte)'G', TestBoardGame.Serialize, TestBoardGame.Deserialize);
+        PhotonPeer.RegisterType(typeof(GooseBoardGame), (byte)'G', GooseBoardGame.Serialize, GooseBoardGame.Deserialize);
 
         playersInGame = 0;
         playersReadyToStart = 0;
@@ -64,22 +68,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        if (PhotonNetwork.IsMasterClient)
+        foreach (Player player in PhotonNetwork.PlayerList)
         {
-            foreach (Player player in PhotonNetwork.PlayerList)
-            {
-                hostScreen.AddPlayer(player);
-            }
-            hostScreen.UpdatePlayerList();
+            playersInRoom.Add(player, false);
         }
-        else
-        {
-            foreach (Player player in PhotonNetwork.PlayerList)
-            {
-                clientScreen.AddPlayer(player);
-            }
-            clientScreen.UpdatePlayerList();
-        }
+        UpdatePlayerUI();
     }
 
     private void RoomAccess()
@@ -97,27 +90,18 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
         RoomAccess();
+        playersInRoom.Add(newPlayer, false);
         if (PhotonNetwork.IsMasterClient)
         {
-            hostScreen.AddPlayer(newPlayer);
             view.RPC("RPC_RoomBoardgame", newPlayer, Game.CURRENTGAME);
         }
-        else
-        {
-            clientScreen.AddPlayer(newPlayer);
-        }
+        UpdatePlayerUI();
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            hostScreen.RemovePlayer(otherPlayer);
-        }
-        else
-        {
-            clientScreen.RemovePlayer(otherPlayer);
-        }
+        playersInRoom.Remove(otherPlayer);
+        UpdatePlayerUI();
         RoomAccess();
     }
 
@@ -158,16 +142,19 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         {
             hostScreen.StartButtonState(false);
         }
+        playersInRoom[player] = true;
+    }
+    private void UpdatePlayerUI()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
-            hostScreen.SetPlayerReady(player);
+            hostScreen.UpdatePlayerList();
         }
         else
         {
-            clientScreen.SetPlayerReady(player);
+            clientScreen.UpdatePlayerList();
         }
     }
-
     [PunRPC]
     private void RPC_PlayerLoaded()
     {

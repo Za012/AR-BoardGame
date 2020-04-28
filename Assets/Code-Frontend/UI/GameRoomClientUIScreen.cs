@@ -7,6 +7,7 @@ public class GameRoomClientUIScreen : GameRoomUIScreen
     public Text screenLabel;
     public Text returnText;
     public Text roomDescriptionText;
+    public Text boardGameName;
 
     public Button readyButton;
 
@@ -16,6 +17,8 @@ public class GameRoomClientUIScreen : GameRoomUIScreen
         screenLabel.text = LanguageManager.Instance.GetWord(screenLabel.name) + PhotonNetwork.CurrentRoom.Name;
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
         roomDescriptionText.text = LanguageManager.Instance.GetWord(roomDescriptionText.name);
+        boardGameName.text = Game.CURRENTGAME.GetGameName();
+
         readyButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(readyButton.name);
     }
     public override void HandleError(string errorName)

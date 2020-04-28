@@ -12,13 +12,12 @@ public class TestBoardGame : MonoBehaviour, IBoardGame
 
     public string GetScene()
     {
-        return "BoardGame"; 
+        return "GooseBoardGame"; 
     }
 
     public void InstantiateScene()
     {
         SceneManager.LoadScene("AREngine", LoadSceneMode.Additive);
-        UIManager.Instance.GameMode();
     }
 
     public void PlaceBoard(Pose hitPose)
@@ -38,5 +37,10 @@ public class TestBoardGame : MonoBehaviour, IBoardGame
     {
         var c = (IBoardGame)customType;
         return new byte[] { c.Id };
+    }
+
+    public string GetGameName()
+    {
+        return "Test";
     }
 }

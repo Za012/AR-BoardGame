@@ -25,7 +25,11 @@
 		<StartGameButton>Start Game</StartGameButton>
 		
 		<ReadyButton>Ready!</ReadyButton>
-		
+    
+				<!-- Goose Board Game-->
+    <GooseBoard>Goose Board</GooseBoard>
+    
+    
 				<!-- ERRORS -->
 		<NoPlayerName></NoPlayerName>
 		<Disconnected></Disconnected>
@@ -56,7 +60,9 @@
 		<StartGameButton>Begin Spel</StartGameButton>
 		
 		<ReadyButton>Klaar!</ReadyButton>
-		
+				<!-- Goose Board Game-->
+    <GooseBoard>Ganzenbord</GooseBoard>
+    
 				<!-- ERRORS -->
 		<NoPlayerName></NoPlayerName>
 		<Disconnected></Disconnected>

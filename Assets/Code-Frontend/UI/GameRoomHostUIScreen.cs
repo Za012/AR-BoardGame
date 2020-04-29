@@ -18,7 +18,7 @@ public class GameRoomHostUIScreen : GameRoomUIScreen
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
         roomDescriptionText.text = LanguageManager.Instance.GetWord(roomDescriptionText.name);
         startGameButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(startGameButton.name);
-        boardGameName.text = Game.CURRENTGAME.GetGameName();
+        boardGameName.text = Game.CURRENTGAMEMETADATA.GetGameName();
 
         startGameButton.interactable = false;
     }

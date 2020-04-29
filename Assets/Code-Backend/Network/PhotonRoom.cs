@@ -58,8 +58,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         view = GetComponent<PhotonView>();
         // Registration of Boardgames  | Every boardgame must be registered.
-        PhotonPeer.RegisterType(typeof(TestBoardGame), (byte)'G', TestBoardGame.Serialize, TestBoardGame.Deserialize);
-        PhotonPeer.RegisterType(typeof(GooseBoardGame), (byte)'G', GooseBoardGame.Serialize, GooseBoardGame.Deserialize);
+        PhotonPeer.RegisterType(typeof(GooseGameMetaData), (byte)'G', GooseGameMetaData.Serialize, GooseGameMetaData.Deserialize);
 
         playersInGame = 0;
         playersReadyToStart = 0;
@@ -77,7 +76,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private void RoomAccess()
     {
-        if (PhotonNetwork.PlayerList.Length == Game.CURRENTGAME.GetMaxPlayers())
+        if (PhotonNetwork.PlayerList.Length == Game.CURRENTGAMEMETADATA.GetMaxPlayers())
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
@@ -93,7 +92,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom.Add(newPlayer, false);
         if (PhotonNetwork.IsMasterClient)
         {
-            view.RPC("RPC_RoomBoardgame", newPlayer, Game.CURRENTGAME);
+            view.RPC("RPC_RoomBoardgame", newPlayer, Game.CURRENTGAMEMETADATA);
         }
         UpdatePlayerUI();
     }
@@ -112,7 +111,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("LOADING GAME SCENE");
-        PhotonNetwork.LoadLevel(Game.CURRENTGAME.GetScene());
+        PhotonNetwork.LoadLevel(Game.CURRENTGAMEMETADATA.GetScene());
     }
 
     public void OnReadyToPlay()
@@ -125,9 +124,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     }
 
     [PunRPC]
-    private void RPC_RoomBoardgame(IBoardGame boardGame)
+    private void RPC_RoomBoardgame(IGameMetaData boardGame)
     {
-        Game.CURRENTGAME = boardGame;
+        Game.CURRENTGAMEMETADATA = boardGame;
+        clientScreen.AssignBoardToUI(); ;
     }
 
     [PunRPC]
@@ -143,6 +143,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             hostScreen.StartButtonState(false);
         }
         playersInRoom[player] = true;
+        UpdatePlayerUI();
     }
     private void UpdatePlayerUI()
     {
@@ -172,7 +173,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         // Placement of board;
         Debug.Log("Initializing Game");
-        Game.CURRENTGAME.InstantiateScene();
+        Game.CURRENTGAMEMETADATA.InstantiateScene();
         // Also instantiates the player prefab...
     }
 }

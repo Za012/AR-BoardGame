@@ -28,7 +28,8 @@
     
 				<!-- Goose Board Game-->
     <GooseBoard>Goose Board</GooseBoard>
-    
+    <PlaceBoardAnnouncement>Place your board!</PlaceBoardAnnouncement>
+    <PlaceBoardInstructions>Touch a spot in your area</PlaceBoardInstructions>
     
 				<!-- ERRORS -->
 		<NoPlayerName></NoPlayerName>
@@ -62,7 +63,8 @@
 		<ReadyButton>Klaar!</ReadyButton>
 				<!-- Goose Board Game-->
     <GooseBoard>Ganzenbord</GooseBoard>
-    
+    <PlaceBoardAnnouncement></PlaceBoardAnnouncement>
+    <PlaceBoardInstructions></PlaceBoardInstructions>
 				<!-- ERRORS -->
 		<NoPlayerName></NoPlayerName>
 		<Disconnected></Disconnected>

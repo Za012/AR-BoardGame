@@ -10,6 +10,7 @@ public class PlayingBoardPlacement : MonoBehaviour
     private ARRaycastManager arRaycastManager;
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
     private Vector2 touchPosition;
+    private IBoardGame boardGame;
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -18,6 +19,7 @@ public class PlayingBoardPlacement : MonoBehaviour
         Debug.Log("AREngine Starting up..");
         arRaycastManager = GetComponent<ARRaycastManager>();
         touchPosition = default;
+        boardGame = Game.CURRENTGAMEMETADATA.GetBoardGame();
         Debug.Log("AREngine Online");
     }
 
@@ -40,8 +42,9 @@ public class PlayingBoardPlacement : MonoBehaviour
             return;
 
         if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)){
+            Debug.Log("Board location found, placing..");
             var hitPose = hits[0].pose;
-            Game.CURRENTGAME.PlaceBoard(hitPose);
+            boardGame.PlaceBoard(hitPose);
         }
     }
 }

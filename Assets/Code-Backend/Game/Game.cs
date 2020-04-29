@@ -2,7 +2,7 @@
 
 public static class Game
 {
-    public static IBoardGame CURRENTGAME;
+    public static IGameMetaData CURRENTGAMEMETADATA;
     public static NetworkConnectionManager NETWORK;
     public static PhotonRoom CURRENTROOM;
 }

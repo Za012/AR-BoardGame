@@ -1,26 +1,27 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GooseBoardGame : MonoBehaviour, IBoardGame 
 {
-    public byte Id { get; set; }
     public Dictionary<int, Player> playersInGame = new Dictionary<int, Player>();
-    public int turnNumber; 
-    public int GetMaxPlayers()
+    public int turnNumber;
+    public GooseGameUI gameScreen;
+    public GameObject gameBoard;
+    public GoosePlayer player;
+    public PhotonView view;
+    private void Awake()
     {
-        return 8;
+        DontDestroyOnLoad(gameObject); // Remove??
     }
-
-    public string GetScene()
+    private void Start()
     {
-        return "GooseBoardGame";
-    }
-    public string GetGameName()
-    {
-        return LanguageManager.Instance.GetWord("GooseBoard"); 
+        playersInGame = new Dictionary<int, Player>();
+        turnNumber = 0;
     }
 
         // INIT //  // INIT //  // INIT //
@@ -30,24 +31,30 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         if (PhotonNetwork.IsMasterClient)
         {
             int index = 0;
-            foreach (KeyValuePair<Player,bool> player in Game.CURRENTROOM.playersInRoom)
+            List<Player> playerKeys = Game.CURRENTROOM.playersInRoom.Keys.ToList();
+            foreach (Player player in playerKeys)
             {
-                playersInGame.Add(index, player.Key);
-                Game.CURRENTROOM.playersInRoom[player.Key] = false;
+                playersInGame.Add(index, player);
+                Game.CURRENTROOM.playersInRoom[player] = false;
+                index++;
             }
         }
+        gameScreen.ChangeAnnouncement(LanguageManager.Instance.GetWord("PlaceBoardAnnouncement"));
+        gameScreen.ChangeInstruction(LanguageManager.Instance.GetWord("PlaceBoardInstructions"));
+        Debug.Log("Scene Initalized - Waiting for players to place boards");
     }
 
     public void PlaceBoard(Pose hitPose)
     {
         Debug.Log("Placing board");
-        Instantiate(gameObject, hitPose.position, hitPose.rotation);
-        Game.CURRENTROOM.view.RPC("PlacedBoard", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
+        Instantiate(gameBoard, hitPose.position, hitPose.rotation);
+        view.RPC("RPC_G_PlacedBoard", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
     }
 
     [PunRPC]
-    private void PlacedBoard(Player player)
+    private void RPC_G_PlacedBoard(Player player)
     {
+        Debug.Log("Player " + player.NickName + " Has placed their board");
         Game.CURRENTROOM.playersInRoom[player] = true;
         foreach (KeyValuePair<Player,bool> p in Game.CURRENTROOM.playersInRoom)
         {
@@ -56,16 +63,21 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
                 return;
             }
         }
-        Game.CURRENTROOM.view.RPC("BeginGame", RpcTarget.All, playersInGame);
-        Game.CURRENTROOM.view.RPC("PlayerTurn", RpcTarget.All, playersInGame[0], 0);
+        Debug.Log("Game is ready to begin!");
+        view.RPC("RPC_G_BeginGame", RpcTarget.All, playersInGame);
+        view.RPC("RPC_G_PlayerTurn", RpcTarget.All, playersInGame[0], 0);
 
     }
     [PunRPC]
-    private void BeginGame(Dictionary<int, Player> playersInGame)
+    private void RPC_G_BeginGame(Dictionary<int, Player> playersInGame)
     {
         this.playersInGame = playersInGame;
         // Change UI Settings
-        // Init Gooses
+
+        // Init Goose
+        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), transform.position, transform.rotation).GetComponent<GoosePlayer>();
+
+        Debug.Log("Game UI Initialized");
     }
         // INIT //  // INIT //  // INIT //
    
@@ -73,11 +85,13 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         
         // GAME LOGIC
     [PunRPC]
-    private void PlayerTurn(Player player, int turnNumber)
+    private void RPC_G_PlayerTurn(Player player, int turnNumber)
     {
-        this.turnNumber = turnNumber;
+        Debug.Log($"It's {player.NickName} turn! | TurnNumber {turnNumber}");
+        this.turnNumber = turnNumber; 
         if(player == PhotonNetwork.LocalPlayer)
         {
+            Debug.Log("My turn!");
             // Play the game
             // Activate UI Stuff and the dice
         }
@@ -85,6 +99,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
     public void DiceRoll()
     {
+        Debug.Log("Dice has been rolled");
         // Roll the dice
 
         // Did player win?
@@ -95,19 +110,9 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         {
             turnNumber = 0;
         }
-        Game.CURRENTROOM.view.RPC("PlayerTurn", playersInGame[turnNumber], turnNumber);
+        Debug.Log($"Next player is {playersInGame[turnNumber].NickName}");
+        view.RPC("PlayerTurn", playersInGame[turnNumber], turnNumber);
     }
 
-    public static object Deserialize(byte[] data)
-    {
-        var result = new TestBoardGame();
-        result.Id = data[0];
-        return result;
-    }
 
-    public static byte[] Serialize(object customType)
-    {
-        var c = (IBoardGame)customType;
-        return new byte[] { c.Id };
-    }
 }

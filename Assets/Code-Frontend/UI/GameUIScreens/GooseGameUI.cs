@@ -1,7 +1,9 @@
 ﻿
+using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-class GooseGameUI : BasicUIScreen, IGameUI
+public class GooseGameUI : BasicUIScreen, IGameUI
 {
     public Text announcementLabel;
     public Text instructionsLabel;
@@ -10,7 +12,6 @@ class GooseGameUI : BasicUIScreen, IGameUI
 
     public override void FillText()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void HandleError(string errorName)
@@ -28,5 +29,17 @@ class GooseGameUI : BasicUIScreen, IGameUI
     public void PlayerTurn()
     {
         throw new System.NotImplementedException();
+    }
+
+    internal void ChangeAnnouncement(string v)
+    {
+        Debug.Log("Changing announcement to: " + v);
+        announcementLabel.text = v;
+    }
+
+    internal void ChangeInstruction(string v)
+    {
+        Debug.Log("Changing instruction to: " + v);
+        instructionsLabel.text = v;
     }
 }

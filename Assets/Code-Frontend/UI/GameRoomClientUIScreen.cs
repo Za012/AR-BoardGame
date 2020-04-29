@@ -17,9 +17,9 @@ public class GameRoomClientUIScreen : GameRoomUIScreen
         screenLabel.text = LanguageManager.Instance.GetWord(screenLabel.name) + PhotonNetwork.CurrentRoom.Name;
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
         roomDescriptionText.text = LanguageManager.Instance.GetWord(roomDescriptionText.name);
-        boardGameName.text = Game.CURRENTGAME.GetGameName();
 
         readyButton.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(readyButton.name);
+        readyButton.interactable = true;
     }
     public override void HandleError(string errorName)
     {
@@ -29,5 +29,11 @@ public class GameRoomClientUIScreen : GameRoomUIScreen
     public void OnReadyClick()
     {
         Game.CURRENTROOM.OnReadyClick();
+        readyButton.interactable = false;
+    }
+
+    internal void AssignBoardToUI()
+    {
+        boardGameName.text = Game.CURRENTGAMEMETADATA.GetGameName();
     }
 }

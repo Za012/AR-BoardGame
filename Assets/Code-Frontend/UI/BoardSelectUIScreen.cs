@@ -18,9 +18,9 @@ public class BoardSelectUIScreen : BasicUIScreen
     {
         throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
     }
-    public void OnClickTest()
+    public void OnClickGooseGame()
     {
-        Game.CURRENTGAME = GameObject.Find("GooseBoardGame").GetComponent<GooseBoardGame>(); 
+        Game.CURRENTGAMEMETADATA = new GooseGameMetaData(); 
         Game.NETWORK.OnClickCreateRoom();
     }
 }

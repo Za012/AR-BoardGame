@@ -10,7 +10,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-        PlayerName = "[GameMaster]Lissy";
+        PlayerName = "[GameMaster]Plez";
     }
 
     // MASTER CONNECTIONS //

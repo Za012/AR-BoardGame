@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class GooseBoardGame : MonoBehaviour, IBoardGame 
 {
-    public Dictionary<int, Player> playersInGame = new Dictionary<int, Player>();
+    public Player[] playersInGame;
     public int turnNumber;
     public GooseGameUI gameScreen;
     public GameObject gameBoard;
@@ -20,7 +20,6 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     }
     private void Start()
     {
-        playersInGame = new Dictionary<int, Player>();
         turnNumber = 0;
     }
 
@@ -32,13 +31,15 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         {
             int index = 0;
             List<Player> playerKeys = Game.CURRENTROOM.playersInRoom.Keys.ToList();
+            playersInGame = new Player[playerKeys.Count];
             foreach (Player player in playerKeys)
             {
-                playersInGame.Add(index, player);
+                playersInGame[index] = player;
                 Game.CURRENTROOM.playersInRoom[player] = false;
                 index++;
             }
         }
+        gameScreen.gameObject.SetActive(true);
         gameScreen.ChangeAnnouncement(LanguageManager.Instance.GetWord("PlaceBoardAnnouncement"));
         gameScreen.ChangeInstruction(LanguageManager.Instance.GetWord("PlaceBoardInstructions"));
         Debug.Log("Scene Initalized - Waiting for players to place boards");
@@ -69,7 +70,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
     }
     [PunRPC]
-    private void RPC_G_BeginGame(Dictionary<int, Player> playersInGame)
+    private void RPC_G_BeginGame(Player[] playersInGame)
     {
         this.playersInGame = playersInGame;
         // Change UI Settings
@@ -106,7 +107,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
         // Next player plays
         turnNumber++;
-        if(turnNumber >= playersInGame.Count)
+        if(turnNumber >= playersInGame.Length)
         {
             turnNumber = 0;
         }

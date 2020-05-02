@@ -22,6 +22,7 @@ public class GameRoomHostUIScreen : GameRoomUIScreen
 
         startGameButton.interactable = false;
     }
+
     public override void HandleError(string errorName)
     {
         throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");

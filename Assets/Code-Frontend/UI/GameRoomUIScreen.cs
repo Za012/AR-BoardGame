@@ -2,6 +2,7 @@
 using Photon.Realtime;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class GameRoomUIScreen : BasicUIScreen
@@ -16,6 +17,13 @@ public abstract class GameRoomUIScreen : BasicUIScreen
     public override void HandleError(string errorName)
     {
         throw new NotImplementedException();
+    }
+    public override void IsUserReturning()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            DisconnectAndReturn();
+        }
     }
 
     public void DisconnectAndReturn()

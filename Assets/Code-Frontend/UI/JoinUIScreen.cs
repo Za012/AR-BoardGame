@@ -7,6 +7,7 @@ public class JoinUIScreen : BasicUIScreen
     public Text returnText;
     public Text joinGameKeyText;
     public Button joinButton;
+    public Text inputField;
 
     public override void FillText()
     {
@@ -19,5 +20,12 @@ public class JoinUIScreen : BasicUIScreen
     public override void HandleError(string errorName)
     {
         throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
+    }
+    public void OnJoinClick()
+    {
+        if (!string.IsNullOrEmpty(inputField.text))
+        {
+            Game.NETWORK.OnClickConnectToRoom(inputField.text);
+        }
     }
 }

@@ -45,23 +45,23 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     }
 
     // USER INTERACTIONS //
-    public void OnClickCreateRoom()
+    public void OnClickCreateRoom(string roomName)
     {
         if (!PhotonNetwork.IsConnected)
         {
             if (!ConnectToMaster())
                 return;
         }
-        PhotonNetwork.CreateRoom("Test", new RoomOptions { MaxPlayers = 4 });
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = (byte)Game.CURRENTGAMEMETADATA.GetMaxPlayers() });
     }
-    public void OnClickConnectToRoom()
+    public void OnClickConnectToRoom(string roomName)
     {
         if (!PhotonNetwork.IsConnected)
         {
             if (!ConnectToMaster())
                 return;
         }
-        PhotonNetwork.JoinRoom("Test");   //Join a specific Room   - Error: OnJoinRoomFailed  
+        PhotonNetwork.JoinRoom(roomName);   //Join a specific Room   - Error: OnJoinRoomFailed  
     }
 
 

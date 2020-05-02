@@ -12,7 +12,8 @@
 		<GooseGameButton>Goose Game</GooseGameButton> 
 		<ScreenLabelBoardSelect>Select Board Game</ScreenLabelBoardSelect>
 		<ReturnText>Main Menu</ReturnText>
-		
+    <CreateGameKeyText>Room Name</CreateGameKeyText>
+    
 		<ScreenLabelJoin>JOIN GAME</ScreenLabelJoin>
 		<JoinGameKeyText>Enter Key</JoinGameKeyText>
 		<JoinButton>Join</JoinButton>

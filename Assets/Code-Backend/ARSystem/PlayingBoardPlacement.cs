@@ -11,6 +11,8 @@ public class PlayingBoardPlacement : MonoBehaviour
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
     private Vector2 touchPosition;
     private IBoardGame boardGame;
+    private bool boardPlaced;
+
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -20,6 +22,7 @@ public class PlayingBoardPlacement : MonoBehaviour
         arRaycastManager = GetComponent<ARRaycastManager>();
         touchPosition = default;
         boardGame = Game.CURRENTGAMEMETADATA.GetBoardGame();
+        boardPlaced = false;
         Debug.Log("AREngine Online");
     }
 
@@ -38,11 +41,12 @@ public class PlayingBoardPlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!TryGetTouchPosition(out Vector2 touchPosition))
+        if (!TryGetTouchPosition(out Vector2 touchPosition) || boardPlaced)
             return;
 
         if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)){
             Debug.Log("Board location found, placing..");
+            boardPlaced = true;
             var hitPose = hits[0].pose;
             boardGame.PlaceBoard(hitPose);
         }

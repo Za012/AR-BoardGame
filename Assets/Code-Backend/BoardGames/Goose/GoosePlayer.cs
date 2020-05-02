@@ -13,6 +13,6 @@ public class GoosePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(new Vector3(40,40,40) * Time.deltaTime);
     }
 }

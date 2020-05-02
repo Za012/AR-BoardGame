@@ -76,8 +76,8 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         // Change UI Settings
 
         // Init Goose
-        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), transform.position, transform.rotation).GetComponent<GoosePlayer>();
-
+        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), gameBoard.transform.position, gameBoard.transform.rotation).GetComponent<GoosePlayer>();
+        player.transform.position += new Vector3(0,0.1f,0);
         Debug.Log("Game UI Initialized");
     }
         // INIT //  // INIT //  // INIT //

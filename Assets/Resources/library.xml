@@ -8,17 +8,18 @@
 		<JoinMenuButton>Join Game</JoinMenuButton>
 		<CreateButton>Create Game</CreateButton>
 		<DonateButton>Donate!</DonateButton>
-		
-		<GooseGameButton>Goose Game</GooseGameButton> 
-		<ScreenLabelBoardSelect>Select Board Game</ScreenLabelBoardSelect>
+
+    <ScreenLabelBoardSelect>Select Board Game</ScreenLabelBoardSelect>
+    <CreateGameKeyText>Enter Room name</CreateGameKeyText>
+    <GooseGameButton>Goose Game</GooseGameButton>
+    <ChessGameButton>Chess&#xA;Coming Soon!</ChessGameButton>
 		<ReturnText>Main Menu</ReturnText>
     <CreateGameKeyText>Room Name</CreateGameKeyText>
-    
-		<ScreenLabelJoin>JOIN GAME</ScreenLabelJoin>
-		<JoinGameKeyText>Enter Key</JoinGameKeyText>
-		<JoinButton>Join</JoinButton>
+    <OpenRoomButton>Open Room</OpenRoomButton>
 		
-		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
+    <ScreenLabelJoin>JOIN GAME</ScreenLabelJoin>
+		<JoinGameKeyText>Enter Room name</JoinGameKeyText>
+		<JoinButton>Join</JoinButton>
 		
 		<ScreenLabelGameRoom>Room id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Invite your friends using the room number!</RoomDescriptionText>
@@ -45,16 +46,17 @@
 		<JoinMenuButton>Join Spel</JoinMenuButton>
 		<CreateButton>Start Spel</CreateButton>
 		<DonateButton>Doneeren!</DonateButton>
-		
-		<GooseGameButton>Ganzen bord</GooseGameButton> 
+
+    <ChessGameButton>Schaken&#xA;Komt er aan!</ChessGameButton>
+    <CreateGameKeyText>Voer de kamer naam in</CreateGameKeyText>
+    <GooseGameButton>Ganzen bord</GooseGameButton> 
 		<ScreenLabelBoardSelect>Selecteer bordspel</ScreenLabelBoardSelect>
 		<ReturnText>Hoofd Menu</ReturnText>
-		
-		<ScreenLabelJoin>Doe meei</ScreenLabelJoin>
-		<JoinGameKeyText>Voer de sleutel in </JoinGameKeyText>
+    <OpenRoomButton>Open de Kamer</OpenRoomButton>
+
+    <ScreenLabelJoin>Doe meei</ScreenLabelJoin>
+		<JoinGameKeyText>Voer de kamer naam in</JoinGameKeyText>
 		<JoinButton>Doe meei</JoinButton>
-		
-		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
 		
 		<ScreenLabelGameRoom>Kamer id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Nodig je vrienden uit met het kamernummer!</RoomDescriptionText>
@@ -64,8 +66,8 @@
 		<ReadyButton>Klaar!</ReadyButton>
 				<!-- Goose Board Game-->
     <GooseBoard>Ganzenbord</GooseBoard>
-    <PlaceBoardAnnouncement></PlaceBoardAnnouncement>
-    <PlaceBoardInstructions></PlaceBoardInstructions>
+    <PlaceBoardAnnouncement>Plaats het bord!</PlaceBoardAnnouncement>
+    <PlaceBoardInstructions>Klik op een vlakke plek op het scherm</PlaceBoardInstructions>
 				<!-- ERRORS -->
 		<NoPlayerName></NoPlayerName>
 		<Disconnected></Disconnected>

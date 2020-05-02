@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,14 +18,29 @@ public class UIManager : MonoBehaviour
         Instance = this;
         currentScreen = initScreen;
         ActivateScreen(currentScreen);
+        DontDestroyOnLoad(gameObject);
     }
     #endregion
 
     public void ActivateScreen(BasicUIScreen screen)
     {
-        currentScreen.gameObject.SetActive(false);
+        if(currentScreen != null)
+            currentScreen.gameObject.SetActive(false);
+        
         screen.gameObject.SetActive(true);
-        screen.FillText();
+        try
+        {
+            screen.FillText();
+        }
+        catch (System.NotImplementedException e)
+        {
+            Debug.Log(e.Message);
+        }
         currentScreen = screen;
+    }
+
+    public void ActivateErrorScreen(string errorName)
+    {
+        currentScreen.HandleError(errorName);
     }
 }

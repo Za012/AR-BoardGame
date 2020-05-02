@@ -4,9 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class InitGame : MonoBehaviour
 {
+    private InitGame Instance;
     private void Awake()
     {
+        if (Instance != null)
+            return;
+            
+        Instance = this;
+
         StartCoroutine(LoadGame());
+        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator LoadGame()
@@ -14,10 +21,6 @@ public class InitGame : MonoBehaviour
         Debug.Log("Loading...");
         SceneManager.LoadScene(
             "UI", LoadSceneMode.Additive);
-        /* SceneManager.LoadScene(
-             "AREngine", LoadSceneMode.Additive);
-         SceneManager.LoadScene(
-             "BoardGame", LoadSceneMode.Additive);*/
         yield return null;
         Debug.Log("Loaded.");
         Init();
@@ -27,18 +30,18 @@ public class InitGame : MonoBehaviour
     {
         Debug.Log("First Init");
         // Resources that needs to be loaded in before game starts
-        /*        Scene s = SceneManager.GetSceneByName("BoardGame");
+                Scene s = SceneManager.GetSceneByName("UI");
                 SceneManager.SetActiveScene(s);
                 foreach (GameObject o in s.GetRootGameObjects())
                 {
-                    IBoardGame bGame = o.GetComponent<IBoardGame>();
-                    o.SetActive(true);
-                    if (bGame != null)
+                    NetworkConnectionManager network = o.GetComponent<NetworkConnectionManager>();
+                    if (network != null)
                     {
-                        Game.CURRENTGAME = bGame;
+                        Game.NETWORK = network;
+                        Game.NETWORK.ConnectToMaster();                        
                         break;
                     }
-                }*/
+                }
         Debug.Log("Initialized");
     }
 }

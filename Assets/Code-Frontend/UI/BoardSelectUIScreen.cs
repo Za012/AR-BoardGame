@@ -1,4 +1,5 @@
 ﻿
+using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardSelectUIScreen : BasicUIScreen
@@ -12,5 +13,14 @@ public class BoardSelectUIScreen : BasicUIScreen
         gooseBoard.GetComponentInChildren<Text>().text = LanguageManager.Instance.GetWord(gooseBoard.name);
         screenLabel.text = LanguageManager.Instance.GetWord(screenLabel.name);
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
+    }
+    public override void HandleError(string errorName)
+    {
+        throw new System.NotImplementedException("Error Name: " + errorName + " has not been handled");
+    }
+    public void OnClickGooseGame()
+    {
+        Game.CURRENTGAMEMETADATA = new GooseGameMetaData(); 
+        Game.NETWORK.OnClickCreateRoom();
     }
 }

@@ -19,13 +19,23 @@
 		
 		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
 		
-		<ScreenLabelGameRoom>Room id</ScreenLabelGameRoom>
+		<ScreenLabelGameRoom>Room id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Invite your friends using the room number!</RoomDescriptionText>
-		<PlayerListTitle>Players number/maxnum</PlayerListTitle>
+		<PlayerListTitle>Players </PlayerListTitle>
 		<StartGameButton>Start Game</StartGameButton>
 		
 		<ReadyButton>Ready!</ReadyButton>
-		
+    
+				<!-- Goose Board Game-->
+    <GooseBoard>Goose Board</GooseBoard>
+    <PlaceBoardAnnouncement>Place your board!</PlaceBoardAnnouncement>
+    <PlaceBoardInstructions>Touch a spot in your area</PlaceBoardInstructions>
+    
+				<!-- ERRORS -->
+		<NoPlayerName></NoPlayerName>
+		<Disconnected></Disconnected>
+		<RoomNotExist></RoomNotExist>
+		<CreateRoomFail></CreateRoomFail>
 	</Language>
 	
 	<Language>
@@ -45,12 +55,21 @@
 		
 		<ScreenLabelGame>...Game Screen...</ScreenLabelGame>
 		
-		<ScreenLabelGameRoom>Kamer id</ScreenLabelGameRoom>
+		<ScreenLabelGameRoom>Kamer id: </ScreenLabelGameRoom>
 		<RoomDescriptionText>Nodig je vrienden uit met het kamernummer!</RoomDescriptionText>
-		<PlayerListTitle>Spelers number/maxnum</PlayerListTitle>
+		<PlayerListTitle>Spelers </PlayerListTitle>
 		<StartGameButton>Begin Spel</StartGameButton>
 		
 		<ReadyButton>Klaar!</ReadyButton>
+				<!-- Goose Board Game-->
+    <GooseBoard>Ganzenbord</GooseBoard>
+    <PlaceBoardAnnouncement></PlaceBoardAnnouncement>
+    <PlaceBoardInstructions></PlaceBoardInstructions>
+				<!-- ERRORS -->
+		<NoPlayerName></NoPlayerName>
+		<Disconnected></Disconnected>
+		<RoomNotExist></RoomNotExist>
+		<CreateRoomFail></CreateRoomFail>
 	</Language>
 	
 </Languages>

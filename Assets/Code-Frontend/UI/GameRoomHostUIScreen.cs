@@ -21,6 +21,7 @@ public class GameRoomHostUIScreen : GameRoomUIScreen
         boardGameName.text = Game.CURRENTGAMEMETADATA.GetGameName();
 
         startGameButton.interactable = false;
+        UpdatePlayerList();
     }
 
     public override void HandleError(string errorName)

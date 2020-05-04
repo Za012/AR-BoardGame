@@ -9,6 +9,8 @@
 		<CreateButton>Create Game</CreateButton>
 		<DonateButton>Donate!</DonateButton>
 
+    <ConnectText>Connecting to Network</ConnectText>
+
     <ScreenLabelBoardSelect>Select Board Game</ScreenLabelBoardSelect>
     <CreateGameKeyText>Enter Room name</CreateGameKeyText>
     <GooseGameButton>Goose Game</GooseGameButton>
@@ -46,6 +48,8 @@
 		<JoinMenuButton>Join Spel</JoinMenuButton>
 		<CreateButton>Start Spel</CreateButton>
 		<DonateButton>Doneeren!</DonateButton>
+
+    <ConnectText>Verbinding maken met Netwerk</ConnectText>
 
     <ChessGameButton>Schaken&#xA;Komt er aan!</ChessGameButton>
     <CreateGameKeyText>Voer de kamer naam in</CreateGameKeyText>

@@ -6,16 +6,45 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 {
     public GameRoomUIScreen hostUIScreen;
     public GameRoomUIScreen clientUIScreen;
+    public BasicUIScreen connectionScreen;
     public string PlayerName { get; set; }
+
+    public bool isAttemptingConnection = false;
 
     public void Start()
     {
         PlayerName = "[GameMaster]Plez";
     }
 
+
+    private void Update()
+    {
+        Debug.Log(".");
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("State: Disconnected");
+            if (isAttemptingConnection)
+                return;
+            Debug.Log("Retrying Connection");
+            UIManager.Instance.ActivateScreenOverlayed(connectionScreen);
+            if (Game.CURRENTROOM.playersInRoom.Count > 0 && !PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.ReconnectAndRejoin();
+            }
+            else
+            {
+                PhotonNetwork.Reconnect();
+            }
+
+        }
+        Debug.Log("State: Connected");
+    }
+
     // MASTER CONNECTIONS //
     public bool ConnectToMaster()
     {
+        Debug.Log("Attempting connection..");
+        isAttemptingConnection = true;
         if (string.IsNullOrEmpty(PlayerName))
         {
             UIManager.Instance.ActivateErrorScreen("NoPlayerName");
@@ -24,13 +53,24 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = PlayerName;
 
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.ConnectUsingSettings();           //automatic connection based on the config file in Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+        try
+        {
+            if (!PhotonNetwork.ConnectUsingSettings())
+                isAttemptingConnection = false;
+        }
+        catch (System.Exception)
+        {
+            isAttemptingConnection = false;
+        }
+
         return true;
     }
 
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
+        isAttemptingConnection = false;
+        UIManager.Instance.DeactivateOverlayed(connectionScreen);
         Debug.Log("Connected to Master!");
     }
 
@@ -41,6 +81,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         if(cause != DisconnectCause.DisconnectByClientLogic)
         {
             UIManager.Instance.ActivateErrorScreen("Disconnected");
+            isAttemptingConnection = false;
         }
     }
 
@@ -70,14 +111,15 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
+        Debug.Log(message);
         UIManager.Instance.ActivateErrorScreen("RoomNotExist");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
-        UIManager.Instance.ActivateErrorScreen("CreateRoomFail");
         Debug.Log(message);
+        UIManager.Instance.ActivateErrorScreen("CreateRoomFail");
     }
 
 

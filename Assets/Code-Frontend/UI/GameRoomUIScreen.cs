@@ -28,9 +28,9 @@ public abstract class GameRoomUIScreen : BasicUIScreen
 
     public void DisconnectAndReturn()
     {
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
         UIManager.Instance.ActivateScreen(UIManager.Instance.initScreen);
-        Game.NETWORK.ConnectToMaster();
+        Game.CURRENTROOM.Wipe();
     }
 
     public void UpdatePlayerList()
@@ -39,13 +39,22 @@ public abstract class GameRoomUIScreen : BasicUIScreen
         playerListTitle.text = LanguageManager.Instance.GetWord(playerListTitle.name) + PhotonNetwork.PlayerList.Length + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
         foreach (KeyValuePair<Player, bool> pair in Game.CURRENTROOM.playersInRoom)
         {
+            Debug.Log("Player: " + pair.Key.NickName);
             if (pair.Value)
             {
                 playerList.text += pair.Key.NickName + "\t" + "Ready" + "\n";
             }
             else
             {
-                playerList.text += pair.Key.NickName + "\t" + "\n";
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    playerList.text += pair.Key.NickName + "\t" + "Leader" + "\n";
+
+                }
+                else
+                {
+                    playerList.text += pair.Key.NickName + "\t" + "\n";
+                }
             }
 
         }

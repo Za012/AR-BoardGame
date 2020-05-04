@@ -35,6 +35,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
+    public void Wipe()
+    {
+        playersInGame = 0;
+        playersReadyToStart = 0;
+        playersInRoom = new Dictionary<Player, bool>();
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();
@@ -99,7 +106,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
+        Debug.Log("Player left room: " + otherPlayer.NickName);
         playersInRoom.Remove(otherPlayer);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("This Player is now master");
+            UIManager.Instance.ActivateScreen(hostScreen);
+            UIManager.Instance.ActivateErrorScreen("MasterClientLeave");
+            return;
+        }
         UpdatePlayerUI();
         RoomAccess();
     }

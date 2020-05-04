@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public BasicUIScreen initScreen;
     private BasicUIScreen currentScreen;
-
+    private List<BasicUIScreen> overlayScreen;
 
     #region Singleton
     private UIManager()
@@ -17,10 +18,43 @@ public class UIManager : MonoBehaviour
     {
         Instance = this;
         currentScreen = initScreen;
+        overlayScreen = new List<BasicUIScreen>();
         ActivateScreen(currentScreen);
         DontDestroyOnLoad(gameObject);
     }
     #endregion
+
+
+
+    public void ActivateScreenOverlayed(BasicUIScreen screen)
+    {
+        if (overlayScreen.Find(x => x == screen))
+            return;
+
+        screen.gameObject.SetActive(true);
+        try
+        {
+            screen.FillText();
+        }
+        catch (System.NotImplementedException e)
+        {
+            Debug.Log(e.Message);
+        }
+        overlayScreen.Add(screen);
+    }
+
+    public void DeactivateOverlayed(BasicUIScreen screen)
+    {
+        BasicUIScreen foundScreen = overlayScreen.Find(x => x == screen);
+        if (foundScreen != null)
+        {
+
+            foundScreen.gameObject.SetActive(false);
+        overlayScreen.Remove(screen);
+        }
+    }
+
+
 
     public void ActivateScreen(BasicUIScreen screen)
     {

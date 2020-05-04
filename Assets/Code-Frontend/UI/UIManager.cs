@@ -1,11 +1,11 @@
-﻿using Photon.Pun;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public BasicUIScreen initScreen;
     private BasicUIScreen currentScreen;
+    public BasicUIScreen playerNameScreen;
     private List<BasicUIScreen> overlayScreen;
 
     #region Singleton
@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
         }
         overlayScreen.Add(screen);
     }
+
 
     public void DeactivateOverlayed(BasicUIScreen screen)
     {

@@ -5,4 +5,5 @@
 public class GameMetaData
 {
     public LanguageEnum language;
+    public string playerName;
 }

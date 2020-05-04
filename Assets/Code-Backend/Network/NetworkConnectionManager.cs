@@ -1,25 +1,19 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 
 public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 {
     public GameRoomUIScreen hostUIScreen;
     public GameRoomUIScreen clientUIScreen;
     public BasicUIScreen connectionScreen;
-    public string PlayerName { get; set; }
 
     public bool isAttemptingConnection = false;
 
-    public void Start()
-    {
-        PlayerName = "[GameMaster]Plez";
-    }
-
-
     private void Update()
     {
-        if (!PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsConnected && !string.IsNullOrEmpty(SaveFile.GetInstance().MetaData.playerName))
         {
             Debug.Log("State: Disconnected");
             if (isAttemptingConnection)
@@ -32,7 +26,10 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                PhotonNetwork.Reconnect();
+                if (!PhotonNetwork.Reconnect())
+                {
+                    ConnectToMaster();
+                }
             }
 
         }
@@ -42,17 +39,24 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public IEnumerator ConnectionAttemptTimeout()
+    {
+        isAttemptingConnection = true;
+        yield return new WaitForSeconds(4);
+        isAttemptingConnection = false;
+    }
     // MASTER CONNECTIONS //
     public bool ConnectToMaster()
     {
         Debug.Log("Attempting connection..");
-        isAttemptingConnection = true;
-        if (string.IsNullOrEmpty(PlayerName))
+        StartCoroutine("ConnectionAttemptTimeout");
+  
+        if (string.IsNullOrEmpty(SaveFile.GetInstance().MetaData.playerName))
         {
             UIManager.Instance.ActivateErrorScreen("NoPlayerName");
             return false;
         }
-        PhotonNetwork.NickName = PlayerName;
+        PhotonNetwork.NickName = SaveFile.GetInstance().MetaData.playerName;
 
         PhotonNetwork.AutomaticallySyncScene = true;
         try
@@ -64,7 +68,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         {
             isAttemptingConnection = false;
         }
-
+        isAttemptingConnection = false;
         return true;
     }
 
@@ -86,7 +90,10 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
             isAttemptingConnection = false;
         }
     }
-
+    public void UpdateNickname()
+    {
+        PhotonNetwork.NickName = SaveFile.GetInstance().MetaData.playerName;
+    }
     // USER INTERACTIONS //
     public void OnClickCreateRoom(string roomName)
     {

@@ -4,7 +4,13 @@
 <Languages>
 	<Language>
 		<Name>English</Name>
-		<ScreenLabelMenu>Main Menu</ScreenLabelMenu>
+    <PlayerNameLabel>Enter Player Name</PlayerNameLabel>
+    <PlayerNameContinueButton>Continue</PlayerNameContinueButton>
+    <ScreenLabelPlayerName>Welcome!</ScreenLabelPlayerName>
+    <PlayerNameDescription>You can almost play, but first, what will be your name?</PlayerNameDescription>
+    
+    
+    <ScreenLabelMenu>Main Menu</ScreenLabelMenu>
 		<JoinMenuButton>Join Game</JoinMenuButton>
 		<CreateButton>Create Game</CreateButton>
 		<DonateButton>Donate!</DonateButton>
@@ -44,7 +50,12 @@
 	
 	<Language>
 		<Name>Dutch</Name>
-		<ScreenLabelMenu>Hoofd Menu</ScreenLabelMenu>
+    <PlayerNameLabel>Vul je nickname in</PlayerNameLabel>
+    <PlayerNameContinueButton>Volgende</PlayerNameContinueButton>
+    <ScreenLabelPlayerName>Welkom!</ScreenLabelPlayerName>
+    <PlayerNameDescription>We kunnen bijna beginnen, maar eerst, wat is je naam?</PlayerNameDescription>
+
+    <ScreenLabelMenu>Hoofd Menu</ScreenLabelMenu>
 		<JoinMenuButton>Join Spel</JoinMenuButton>
 		<CreateButton>Start Spel</CreateButton>
 		<DonateButton>Doneeren!</DonateButton>

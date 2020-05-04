@@ -23,6 +23,8 @@ public class BoardSelectUIScreen : BasicUIScreen
         createGameKeyText.text = LanguageManager.Instance.GetWord(createGameKeyText.name);
         returnText.text = LanguageManager.Instance.GetWord(returnText.name);
         inputField.text = "";
+        gooseGameButton.interactable = true;
+
     }
     public override void HandleError(string errorName)
     {

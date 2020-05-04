@@ -46,7 +46,7 @@ public abstract class GameRoomUIScreen : BasicUIScreen
             }
             else
             {
-                if (PhotonNetwork.IsMasterClient)
+                if (pair.Key.IsMasterClient)
                 {
                     playerList.text += pair.Key.NickName + "\t" + "Leader" + "\n";
 

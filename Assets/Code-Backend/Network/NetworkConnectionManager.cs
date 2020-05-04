@@ -19,7 +19,6 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        Debug.Log(".");
         if (!PhotonNetwork.IsConnected)
         {
             Debug.Log("State: Disconnected");
@@ -37,7 +36,10 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
             }
 
         }
-        Debug.Log("State: Connected");
+        else
+        {
+            Debug.Log("State: Connected");
+        }
     }
 
     // MASTER CONNECTIONS //

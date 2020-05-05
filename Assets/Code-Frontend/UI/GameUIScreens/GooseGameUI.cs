@@ -69,14 +69,16 @@ public class GooseGameUI : BasicUIScreen, IGameUI
         }
     }
 
-    public void PlayerTurn(int turnNumber)
+    public void PlayerTurn(int turnNumber, int maxPlayerNumber)
     {
         // Dice roll Icon
+        Debug.Log("Icon Active: " + turnNumber);
         playerSlots[turnNumber].transform.Find("Icon").GetComponent<Image>().gameObject.SetActive(true);
         int prevTurn = turnNumber - 1;
         if (prevTurn < 0)
-            prevTurn = playerSlots.Length - 1;
+            prevTurn = maxPlayerNumber;
 
+        Debug.Log("Icon DeActive: " + prevTurn);
         playerSlots[prevTurn].transform.Find("Icon").GetComponent<Image>().gameObject.SetActive(false);
     }
 

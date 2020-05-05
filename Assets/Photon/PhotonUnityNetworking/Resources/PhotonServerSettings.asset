@@ -40,6 +40,8 @@ MonoBehaviour:
   - RPC_PlayerLoaded
   - RPC_PlayerReady
   - RPC_RoomBoardgame
+  - RPC_G_GameOver
+  - RPC_G_MechanicTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

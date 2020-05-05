@@ -47,12 +47,12 @@ public class GameControl : MonoBehaviour
                 Player.CurrentPosition = Player.CurrentPosition + 1;
                 if (Player.CurrentPosition == 63)
                 {
-                    Animator.ToggleWalk();
-                    if (moves - (i - 1) != 0)
-                    {
-                        StartCoroutine(MoveBackwards(i));
+                    //Animator.ToggleWalk();
+                    //if (moves - (i - 1) != 0)
+                    //{
+                    //    StartCoroutine(MoveBackwards(i));
                         yield break;
-                    }
+                    //}
                 }
                 MechanicControl passThruMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
                 if (passThruMechanic != null)

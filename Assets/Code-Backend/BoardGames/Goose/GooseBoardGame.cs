@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,6 +52,11 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         Debug.Log("Placing board");
         GameObject boardObject = Instantiate(gameBoard, hitPose.position, hitPose.rotation);
         control = boardObject.transform.Find("GameControl").GetComponent<GameControl>();
+        if(control == null)
+        {
+            Debug.LogError("GameControl not found");
+            throw new System.Exception();
+        }
         view.RPC("RPC_G_PlacedBoard", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
     }
 
@@ -59,7 +65,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         Debug.Log("Player " + player.NickName + " Has placed their board");
         Game.CURRENTROOM.playersInRoom[player] = true;
-        foreach (KeyValuePair<Player,bool> p in Game.CURRENTROOM.playersInRoom)
+        foreach (KeyValuePair<Player, bool> p in Game.CURRENTROOM.playersInRoom)
         {
             if (!p.Value)
             {
@@ -85,8 +91,6 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         control.Player = player;
         
         Debug.Log("Game UI Initialized");
-        Accelerometer.Instance.OnShake += DiceRoll;
-        Debug.Log("Able to shake to roll dice");
     }
     // INIT //  // INIT //  // INIT //
 
@@ -102,33 +106,45 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         {
             Debug.Log("My turn!");
             gameScreen.ChangeAnnouncement("Roll the DICE!");
+            StartCoroutine("DiceRoll");
             // Play the game
             // Activate UI Stuff and the dice
         }
     }
 
-    public void DiceRoll()
+    public IEnumerator DiceRoll()
     {
-        Debug.Log("Dice has been rolled");
-        gameScreen.ChangeAnnouncement("Dice has been rolled");
         // Roll the dice
-        int diceRoll = 5;
+        int randomDiceSide1 = 0;
+        int randomDiceSide2 = 0;
+        for (int i = 0; i <= 20; i++)
+        {
+            randomDiceSide1 = Random.Range(0,6);
+            randomDiceSide2 = Random.Range(0, 6);
+            gameScreen.ChangeDiceImage(randomDiceSide1, randomDiceSide2);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(0.8f);
+        gameScreen.HideDiceImage();
 
+        int diceRoll = randomDiceSide1 + randomDiceSide2;
+        Debug.Log(diceRoll);
+
+        gameScreen.ChangeAnnouncement("Dice has been rolled");
         control.MovePlayer(diceRoll);
-        // Did player win?
+        NextPlayer();
+    }
 
+    public void NextPlayer()
+    {
         // Next player plays
         turnNumber++;
-        if(turnNumber >= playersInGame.Length)
+        if (turnNumber > playersInGame.Length)
         {
             turnNumber = 0;
         }
         Debug.Log($"Next player is {playersInGame[turnNumber].NickName}");
-        view.RPC("PlayerTurn", playersInGame[turnNumber], turnNumber);
-    }
-    private void OnDestroy()
-    {
-        Accelerometer.Instance.OnShake -= DiceRoll;
+        view.RPC("RPC_G_PlayerTurn",RpcTarget.All, playersInGame[turnNumber], turnNumber);
     }
 
 }

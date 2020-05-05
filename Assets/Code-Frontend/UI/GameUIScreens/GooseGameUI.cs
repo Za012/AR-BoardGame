@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,14 @@ public class GooseGameUI : BasicUIScreen, IGameUI
     public Text announcementLabel;
     public Text instructionsLabel;
     public Text playerTurnLabel;
+    public Image dice1;
+
+    private Sprite[] diceSides;
 
 
     public override void FillText()
     {
+        diceSides = Resources.LoadAll<Sprite>("DiceSides/");
     }
 
     public override void HandleError(string errorName)
@@ -24,7 +29,15 @@ public class GooseGameUI : BasicUIScreen, IGameUI
         throw new System.NotImplementedException();
     }
 
-
+    public void ChangeDiceImage(int diceSide1, int diceSide2)
+    {
+        dice1.sprite = diceSides[diceSide1];
+    }
+    public void HideDiceImage()
+    {
+        dice1.gameObject.SetActive(false);
+      // dice2.gameObject.SetActive(false);
+    }
 
     public void PlayerTurn()
     {

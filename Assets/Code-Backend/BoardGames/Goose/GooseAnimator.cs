@@ -16,20 +16,20 @@ public class GooseAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if ((Input.touchCount > 0))
         {
             isWalking = !isWalking;
             animator.SetBool("isWalking", isWalking);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            isWiggle = !isWiggle;
-            animator.SetBool("isWiggle", isWiggle);
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            isTurning = !isTurning;
-            animator.SetBool("isTurning", isTurning);
-        }
+        //if (Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    isWiggle = !isWiggle;
+        //    animator.SetBool("isWiggle", isWiggle);
+        //}
+        //if (Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    isTurning = !isTurning;
+        //    animator.SetBool("isTurning", isTurning);
+        //}
     }
 }

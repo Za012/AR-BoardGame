@@ -111,6 +111,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         gameScreen.PlayerTurn(turnNumber, playersInGame.Length - 1);
         if (player == PhotonNetwork.LocalPlayer)
         {
+
             Debug.Log("My turn!");
             gameScreen.ChangeAnnouncement("It's your turn!");
             StartCoroutine("DiceRoll");
@@ -123,24 +124,36 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
     public IEnumerator DiceRoll()
     {
-        // Roll the dice
-        int randomDiceSide1 = 0;
-        int randomDiceSide2 = 0;
-        for (int i = 0; i <= 20; i++)
+        if (control.skipNextTurn)
         {
-            randomDiceSide1 = Random.Range(0, 6);
-            randomDiceSide2 = Random.Range(0, 6);
-            gameScreen.ChangeDiceImage(randomDiceSide1, randomDiceSide2);
-            yield return new WaitForSeconds(0.1f);
+            control.skipNextTurn = false;
+            gameScreen.ChangeAnnouncement("Turn Skipped!");
+            gameScreen.ChangeInstruction("You're stuck in a place");
+            yield return new WaitForSeconds(4);
+            gameScreen.ChangeAnnouncement("");
+            gameScreen.ChangeInstruction("");
         }
-        yield return new WaitForSeconds(0.8f);
-        gameScreen.HideDiceImage();
+        else
+        {
+            // Roll the dice
+            int randomDiceSide1 = 0;
+            int randomDiceSide2 = 0;
+            for (int i = 0; i <= 20; i++)
+            {
+                randomDiceSide1 = Random.Range(0, 6);
+                randomDiceSide2 = Random.Range(0, 6);
+                gameScreen.ChangeDiceImage(randomDiceSide1, randomDiceSide2);
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(0.8f);
+            gameScreen.HideDiceImage();
 
-        int diceRoll = (randomDiceSide1 + 1) + (randomDiceSide2 + 1);
+            int diceRoll = (randomDiceSide1 + 1) + (randomDiceSide2 + 1);
 
-        gameScreen.ChangeAnnouncement("Dice has been rolled");
-        control.Move(diceRoll);
-        yield return new WaitForSeconds(5.8f);
+            gameScreen.ChangeAnnouncement("Dice has been rolled");
+            control.Move(diceRoll);
+            yield return new WaitForSeconds(5.8f);
+        }
 
         if (control.Player.CurrentPosition == 63)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameControl : MonoBehaviour
@@ -10,20 +11,20 @@ public class GameControl : MonoBehaviour
     public float movementSpeed = 1f;
     
     public float timeToMove = 0.5f;
-
-
+    public List<int> skipTurn;
+    public bool skipNextTurn;
     public void Move(int moves)
     {
         //Player.transform.position = waypoints[Player.CurrentPosition].transform.transform.position;
-        MechanicControl allowanceMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
-        if (allowanceMechanic != null)
-        {
-            if (!allowanceMechanic.IsAllowed())
+       // MechanicControl allowanceMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
+       // if (allowanceMechanic != null)
+       // {
+            if (skipNextTurn)
             {
                 // UI STUFF
                 return;
             }
-        }
+       // }
 
         Debug.Log(moves);
         StartCoroutine(MovePlayer(moves));
@@ -70,7 +71,10 @@ public class GameControl : MonoBehaviour
             mechanic.DoMechanic(Player, moves);
         }
         //yield return new WaitForSeconds(1);
-
+        if (skipTurn.IndexOf(Player.CurrentPosition) != -1)
+        {
+            skipNextTurn = true;
+        }
 
         Debug.Log("Stop Walking");
     }

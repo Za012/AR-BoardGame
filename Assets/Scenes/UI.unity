@@ -2409,7 +2409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -9416,6 +9416,7 @@ MonoBehaviour:
   view: {fileID: 2146862866}
   hostScreen: {fileID: 814098990}
   clientScreen: {fileID: 1707802691}
+  isMaster: 0
 --- !u!4 &2146862865
 Transform:
   m_ObjectHideFlags: 0

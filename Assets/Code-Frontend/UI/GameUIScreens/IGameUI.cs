@@ -2,5 +2,5 @@
 public interface IGameUI
 {
     void BoardPlacement();
-    void PlayerTurn();
+    void PlayerTurn(int turnNumber);
 }

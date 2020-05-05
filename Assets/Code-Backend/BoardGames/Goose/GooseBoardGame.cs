@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GooseBoardGame : MonoBehaviour, IBoardGame 
+public class GooseBoardGame : MonoBehaviour, IBoardGame
 {
     public Player[] playersInGame;
     public int turnNumber;
@@ -23,7 +23,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         turnNumber = 0;
     }
 
-        // INIT //  // INIT //  // INIT //
+    // INIT //  // INIT //  // INIT //
     public void InstantiateScene()
     {
         SceneManager.LoadScene("AREngine", LoadSceneMode.Additive);
@@ -39,7 +39,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
                 index++;
             }
         }
-        gameScreen.gameObject.SetActive(true);
+        UIManager.Instance.ActivateScreen(gameScreen);
         gameScreen.ChangeAnnouncement(LanguageManager.Instance.GetWord("PlaceBoardAnnouncement"));
         gameScreen.ChangeInstruction(LanguageManager.Instance.GetWord("PlaceBoardInstructions"));
         Debug.Log("Scene Initalized - Waiting for players to place boards");
@@ -57,7 +57,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         Debug.Log("Player " + player.NickName + " Has placed their board");
         Game.CURRENTROOM.playersInRoom[player] = true;
-        foreach (KeyValuePair<Player,bool> p in Game.CURRENTROOM.playersInRoom)
+        foreach (KeyValuePair<Player, bool> p in Game.CURRENTROOM.playersInRoom)
         {
             if (!p.Value)
             {
@@ -74,23 +74,25 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         this.playersInGame = playersInGame;
         // Change UI Settings
+        gameScreen.InstantiatePlayerList(playersInGame);
 
         // Init Goose
-        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), gameBoard.transform.position, gameBoard.transform.rotation).GetComponent<GoosePlayer>();
-        player.transform.position += new Vector3(0,0.1f,0);
+        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GoosePlayerPrefab"), gameBoard.transform.position, gameBoard.transform.rotation).GetComponent<GoosePlayer>();
+        player.transform.position += new Vector3(0, 0.1f, 0);
         Debug.Log("Game UI Initialized");
     }
-        // INIT //  // INIT //  // INIT //
-   
+    // INIT //  // INIT //  // INIT //
 
-        
-        // GAME LOGIC
+
+
+    // GAME LOGIC
     [PunRPC]
     private void RPC_G_PlayerTurn(Player player, int turnNumber)
     {
         Debug.Log($"It's {player.NickName} turn! | TurnNumber {turnNumber}");
-        this.turnNumber = turnNumber; 
-        if(player == PhotonNetwork.LocalPlayer)
+        this.turnNumber = turnNumber;
+        gameScreen.PlayerTurn(turnNumber);
+        if (player == PhotonNetwork.LocalPlayer)
         {
             Debug.Log("My turn!");
             // Play the game
@@ -107,7 +109,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
         // Next player plays
         turnNumber++;
-        if(turnNumber >= playersInGame.Length)
+        if (turnNumber >= playersInGame.Length)
         {
             turnNumber = 0;
         }

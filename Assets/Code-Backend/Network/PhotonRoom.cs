@@ -15,7 +15,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private int playersReadyToStart;
     private int playersInGame;
-
+    public bool isMaster;
     public Dictionary<Player, bool> playersInRoom = new Dictionary<Player, bool>();
 
     private void Awake()
@@ -67,6 +67,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         // Registration of Boardgames  | Every boardgame must be registered.
         PhotonPeer.RegisterType(typeof(GooseGameMetaData), (byte)'G', GooseGameMetaData.Serialize, GooseGameMetaData.Deserialize);
 
+        isMaster = false;
         playersInGame = 0;
         playersReadyToStart = 0;
     }
@@ -74,6 +75,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        isMaster = false;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             playersInRoom.Add(player, false);
@@ -108,7 +110,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         base.OnPlayerLeftRoom(otherPlayer);
         Debug.Log("Player left room: " + otherPlayer.NickName);
         playersInRoom.Remove(otherPlayer);
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && !isMaster)
         {
             Debug.Log("This Player is now master");
             UIManager.Instance.ActivateScreen(hostScreen);

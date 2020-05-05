@@ -15,9 +15,9 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsConnected && !string.IsNullOrEmpty(SaveFile.GetInstance().MetaData.playerName))
         {
-            Debug.Log("State: Disconnected");
             if (isAttemptingConnection)
                 return;
+            Debug.Log("State: Disconnected");
             Debug.Log("Retrying Connection");
             UIManager.Instance.ActivateScreenOverlayed(connectionScreen);
             if (Game.CURRENTROOM.playersInRoom.Count > 0 && !PhotonNetwork.IsMasterClient)
@@ -31,11 +31,6 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
                     ConnectToMaster();
                 }
             }
-
-        }
-        else
-        {
-            Debug.Log("State: Connected");
         }
     }
 
@@ -136,6 +131,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();
+        Game.CURRENTROOM.isMaster = true;
         Debug.Log("Room: " + PhotonNetwork.CurrentRoom.Name + " has been created!");
     }
     public override void OnJoinedRoom()

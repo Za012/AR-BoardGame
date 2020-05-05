@@ -7,6 +7,7 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlayingBoardPlacement : MonoBehaviour
 {
+    public ARPlaneManager planeManager;
     private ARRaycastManager arRaycastManager;
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
     private Vector2 touchPosition;
@@ -28,7 +29,7 @@ public class PlayingBoardPlacement : MonoBehaviour
 
     private bool TryGetTouchPosition(out Vector2 touchPosition)
     {
-        if(Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             touchPosition = Input.GetTouch(0).position;
             return true;
@@ -41,14 +42,16 @@ public class PlayingBoardPlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!TryGetTouchPosition(out Vector2 touchPosition) || boardPlaced)
+        if (boardPlaced || !TryGetTouchPosition(out Vector2 touchPosition))
             return;
 
-        if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)){
+        if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
+        {
             Debug.Log("Board location found, placing..");
             boardPlaced = true;
             var hitPose = hits[0].pose;
             boardGame.PlaceBoard(hitPose);
+            planeManager.enabled = false;
         }
     }
 }

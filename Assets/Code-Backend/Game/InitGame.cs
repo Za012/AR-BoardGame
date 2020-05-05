@@ -11,7 +11,7 @@ public class InitGame : MonoBehaviour
             return;
             
         Instance = this;
-
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         StartCoroutine(LoadGame());
         DontDestroyOnLoad(gameObject);
     }

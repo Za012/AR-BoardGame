@@ -1,16 +1,10 @@
-﻿using UnityEngine;
-
-public class BridgeMechanic : MonoBehaviour, IMechanic 
+﻿
+public class BridgeMechanic : MechanicControl 
 {
     public int numberOfMoves;
 
-    public void DoMechanic(GoosePlayer player)
+    public override void DoMechanic(GoosePlayer player)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void PassThroughMechanic()
-    {
-        throw new System.NotImplementedException();
+        control.Move(numberOfMoves);
     }
 }

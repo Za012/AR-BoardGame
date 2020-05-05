@@ -14,6 +14,6 @@ public class GoosePlayer : MonoBehaviour
     void Update()
     {
         
-        transform.Rotate(new Vector3(40,40,40) * Time.deltaTime);
+        //transform.Rotate(new Vector3(40,40,40) * Time.deltaTime);
     }
 }

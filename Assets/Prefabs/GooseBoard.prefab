@@ -109,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4486441366658329493
 Transform:
   m_ObjectHideFlags: 0
@@ -1551,6 +1551,7 @@ MonoBehaviour:
   - {fileID: 6360508317061018145}
   - {fileID: 8736347180880541017}
   - {fileID: 3487848643947734629}
+  movementSpeed: 1
 --- !u!1 &3959052533717668753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3826,6 +3827,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BigGoose
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7e5fdfb93776bb34c8d6ce7bd0c60d93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e5fdfb93776bb34c8d6ce7bd0c60d93, type: 3}

@@ -14,13 +14,14 @@ public class GooseAnimator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void ToggleWalk()
     {
-        if ((Input.touchCount > 0))
-        {
-            isWalking = !isWalking;
-            animator.SetBool("isWalking", isWalking);
-        }
+        isWalking = !isWalking;
+        animator.SetBool("isWalking", isWalking);
+    }
+
+    void StopWalk()
+    {
         //if (Input.GetKeyDown(KeyCode.DownArrow))
         //{
         //    isWiggle = !isWiggle;

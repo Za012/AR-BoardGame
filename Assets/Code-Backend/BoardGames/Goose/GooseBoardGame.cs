@@ -65,13 +65,13 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         Debug.Log("Player " + player.NickName + " Has placed their board");
         Game.CURRENTROOM.playersInRoom[player] = true;
-        foreach (KeyValuePair<Player, bool> p in Game.CURRENTROOM.playersInRoom)
-        {
-            if (!p.Value)
-            {
-                return;
-            }
-        }
+        //foreach (KeyValuePair<Player, bool> p in Game.CURRENTROOM.playersInRoom)
+        //{
+        //    if (!p.Value)
+        //    {
+        //        return;
+        //    }
+        //}
         Debug.Log("Game is ready to begin!");
         view.RPC("RPC_G_BeginGame", RpcTarget.All, playersInGame);
         view.RPC("RPC_G_PlayerTurn", RpcTarget.All, playersInGame[0], 0);
@@ -85,11 +85,13 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         this.playersInGame = playersInGame;
         // Change UI Settings
-
+        GameObject boardObject = Instantiate(gameBoard, transform.position, transform.rotation);
+        control = boardObject.transform.Find("GameControl").GetComponent<GameControl>();
         // Init Goose
-        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), gameBoard.transform.position, gameBoard.transform.rotation).GetComponent<GoosePlayer>();
+        player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), control.waypoints[0].transform.position, control.waypoints[0].transform.rotation).GetComponent<GoosePlayer>();
+
         control.Player = player;
-        
+        control.Animator = player.GetComponent<GooseAnimator>();
         Debug.Log("Game UI Initialized");
     }
     // INIT //  // INIT //  // INIT //
@@ -120,7 +122,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         for (int i = 0; i <= 20; i++)
         {
             randomDiceSide1 = Random.Range(0,6);
-            randomDiceSide2 = Random.Range(0, 6);
+            randomDiceSide2 = Random.Range(0,6);
             gameScreen.ChangeDiceImage(randomDiceSide1, randomDiceSide2);
             yield return new WaitForSeconds(0.1f);
         }
@@ -128,10 +130,10 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         gameScreen.HideDiceImage();
 
         int diceRoll = randomDiceSide1 + randomDiceSide2;
-        Debug.Log(diceRoll);
 
         gameScreen.ChangeAnnouncement("Dice has been rolled");
-        control.MovePlayer(diceRoll);
+        control.Move(diceRoll);
+        yield return new WaitForSeconds(5.8f);
         NextPlayer();
     }
 
@@ -139,7 +141,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     {
         // Next player plays
         turnNumber++;
-        if (turnNumber > playersInGame.Length)
+        if (turnNumber > playersInGame.Length-1)
         {
             turnNumber = 0;
         }

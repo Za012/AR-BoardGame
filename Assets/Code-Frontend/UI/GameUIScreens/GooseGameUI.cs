@@ -10,6 +10,7 @@ public class GooseGameUI : BasicUIScreen, IGameUI
     public Text instructionsLabel;
     public Text playerTurnLabel;
     public Image dice1;
+    public Image dice2;
 
     private Sprite[] diceSides;
 
@@ -31,12 +32,15 @@ public class GooseGameUI : BasicUIScreen, IGameUI
 
     public void ChangeDiceImage(int diceSide1, int diceSide2)
     {
+        dice1.gameObject.SetActive(true);
+        dice2.gameObject.SetActive(true);
         dice1.sprite = diceSides[diceSide1];
+        dice2.sprite = diceSides[diceSide2]; 
     }
     public void HideDiceImage()
     {
         dice1.gameObject.SetActive(false);
-      // dice2.gameObject.SetActive(false);
+        dice2.gameObject.SetActive(false);
     }
 
     public void PlayerTurn()

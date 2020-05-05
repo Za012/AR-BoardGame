@@ -14,6 +14,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     public GameObject gameBoard;
     public GoosePlayer player;
     public PhotonView view;
+    private GameControl control;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject); // Remove??
@@ -48,7 +49,8 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     public void PlaceBoard(Pose hitPose)
     {
         Debug.Log("Placing board");
-        Instantiate(gameBoard, hitPose.position, hitPose.rotation);
+        GameObject boardObject = Instantiate(gameBoard, hitPose.position, hitPose.rotation);
+        control = boardObject.transform.Find("GameControl").GetComponent<GameControl>();
         view.RPC("RPC_G_PlacedBoard", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
     }
 
@@ -69,6 +71,9 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         view.RPC("RPC_G_PlayerTurn", RpcTarget.All, playersInGame[0], 0);
 
     }
+
+
+    // Client Entry Point
     [PunRPC]
     private void RPC_G_BeginGame(Player[] playersInGame)
     {
@@ -77,14 +82,17 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
 
         // Init Goose
         player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","GoosePlayerPrefab"), gameBoard.transform.position, gameBoard.transform.rotation).GetComponent<GoosePlayer>();
-        player.transform.position += new Vector3(0,0.1f,0);
-        Debug.Log("Game UI Initialized");
-    }
-        // INIT //  // INIT //  // INIT //
-   
-
+        control.Player = player;
         
-        // GAME LOGIC
+        Debug.Log("Game UI Initialized");
+        Accelerometer.Instance.OnShake += DiceRoll;
+        Debug.Log("Able to shake to roll dice");
+    }
+    // INIT //  // INIT //  // INIT //
+
+
+
+    // GAME LOGIC
     [PunRPC]
     private void RPC_G_PlayerTurn(Player player, int turnNumber)
     {
@@ -93,6 +101,7 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         if(player == PhotonNetwork.LocalPlayer)
         {
             Debug.Log("My turn!");
+            gameScreen.ChangeAnnouncement("Roll the DICE!");
             // Play the game
             // Activate UI Stuff and the dice
         }
@@ -101,8 +110,11 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
     public void DiceRoll()
     {
         Debug.Log("Dice has been rolled");
+        gameScreen.ChangeAnnouncement("Dice has been rolled");
         // Roll the dice
+        int diceRoll = 5;
 
+        control.MovePlayer(diceRoll);
         // Did player win?
 
         // Next player plays
@@ -114,6 +126,9 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         Debug.Log($"Next player is {playersInGame[turnNumber].NickName}");
         view.RPC("PlayerTurn", playersInGame[turnNumber], turnNumber);
     }
-
+    private void OnDestroy()
+    {
+        Accelerometer.Instance.OnShake -= DiceRoll;
+    }
 
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TestBoardGame : MonoBehaviour, IBoardGame 
+public class TestBoardGame : MonoBehaviour, IBoardGame
 {
     public int GetMaxPlayers()
     {
@@ -10,7 +10,7 @@ public class TestBoardGame : MonoBehaviour, IBoardGame
 
     public string GetScene()
     {
-        return "GooseBoardGame"; 
+        return "GooseBoardGame";
     }
 
     public void InstantiateScene()

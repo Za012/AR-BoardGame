@@ -1,5 +1,4 @@
-﻿
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine.UI;
 
 public class GameRoomClientUIScreen : GameRoomUIScreen

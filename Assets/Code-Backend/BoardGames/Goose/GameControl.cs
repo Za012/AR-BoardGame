@@ -9,22 +9,21 @@ public class GameControl : MonoBehaviour
     public GooseAnimator Animator { get; set; }
     [SerializeField]
     public float movementSpeed = 1f;
-    
+
     public float timeToMove = 0.5f;
     public List<int> skipTurn;
     public bool skipNextTurn;
     public void Move(int moves)
     {
-        //Player.transform.position = waypoints[Player.CurrentPosition].transform.transform.position;
-       // MechanicControl allowanceMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
-       // if (allowanceMechanic != null)
-       // {
-            if (skipNextTurn)
+        MechanicControl allowanceMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
+        if (allowanceMechanic != null)
+        {
+            if (!allowanceMechanic.IsAllowed())
             {
                 // UI STUFF
                 return;
             }
-       // }
+        }
 
         Debug.Log(moves);
         StartCoroutine(MovePlayer(moves));
@@ -41,18 +40,19 @@ public class GameControl : MonoBehaviour
                 while (t < 1)
                 {
                     t += Time.deltaTime / timeToMove;
-                    Player.transform.position = Vector3.Lerp(currentPos, waypoints[Player.CurrentPosition+1].transform.position, t);
+                    Player.transform.position = Vector3.Lerp(currentPos, waypoints[Player.CurrentPosition + 1].transform.position, t);
                     Player.transform.rotation = Quaternion.Lerp(Player.transform.rotation, waypoints[Player.CurrentPosition].transform.rotation, t);
                     yield return null;
                 }
                 Player.CurrentPosition = Player.CurrentPosition + 1;
                 if (Player.CurrentPosition == 63)
                 {
+                    yield break;
                     //Animator.ToggleWalk();
                     //if (moves - (i - 1) != 0)
                     //{
                     //    StartCoroutine(MoveBackwards(i));
-                        yield break;
+                    //    yield break;
                     //}
                 }
                 MechanicControl passThruMechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
@@ -64,21 +64,22 @@ public class GameControl : MonoBehaviour
         }
 
         Animator.ToggleWalk();
+        Debug.Log("Stop Walking");
 
         MechanicControl mechanic = waypoints[Player.CurrentPosition].GetComponent<MechanicControl>();
         if (mechanic != null)
         {
             mechanic.DoMechanic(Player, moves);
         }
-        //yield return new WaitForSeconds(1);
+
         if (skipTurn.IndexOf(Player.CurrentPosition) != -1)
         {
             skipNextTurn = true;
         }
 
-        Debug.Log("Stop Walking");
     }
 
+    // Not Implemented...(bugged)
     private IEnumerator MoveBackwards(int moves)
     {
         // Toggle Rotation

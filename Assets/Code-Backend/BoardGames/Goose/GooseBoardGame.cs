@@ -88,9 +88,6 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         this.playersInGame = playersInGame;
         // Change UI Settings
         gameScreen.InstantiatePlayerList(playersInGame);
-        // DEBUG
-        // GameObject boardObject = Instantiate(gameBoard, transform.position, transform.rotation);
-        // control = boardObject.transform.Find("GameControl").GetComponent<GameControl>();
 
         // Init Goose
         player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GoosePlayerPrefab"), control.waypoints[0].transform.position, control.waypoints[0].transform.rotation).GetComponent<GoosePlayer>();
@@ -111,7 +108,6 @@ public class GooseBoardGame : MonoBehaviour, IBoardGame
         gameScreen.PlayerTurn(turnNumber, playersInGame.Length - 1);
         if (player == PhotonNetwork.LocalPlayer)
         {
-
             Debug.Log("My turn!");
             gameScreen.ChangeAnnouncement("It's your turn!");
             StartCoroutine("DiceRoll");

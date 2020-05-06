@@ -1,8 +1,6 @@
 ﻿
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +39,7 @@ public class GooseGameUI : BasicUIScreen, IGameUI
         dice1.gameObject.SetActive(true);
         dice2.gameObject.SetActive(true);
         dice1.sprite = diceSides[diceSide1];
-        dice2.sprite = diceSides[diceSide2]; 
+        dice2.sprite = diceSides[diceSide2];
     }
     public void HideDiceImage()
     {
@@ -54,7 +52,7 @@ public class GooseGameUI : BasicUIScreen, IGameUI
         foreach (Player player in players)
         {
             playerSlots[slotIndex].transform.Find("PlayerName").GetComponent<Text>().text = player.NickName;
-            if(player == PhotonNetwork.LocalPlayer)
+            if (player == PhotonNetwork.LocalPlayer)
             {
                 playerSlots[slotIndex].transform.Find("Background").GetComponent<Image>().color = localPlayer;
                 localPlayerSlot = playerSlots[slotIndex];

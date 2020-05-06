@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GooseAnimator : MonoBehaviour
 {
@@ -18,19 +16,5 @@ public class GooseAnimator : MonoBehaviour
     {
         isWalking = !isWalking;
         animator.SetBool("isWalking", isWalking);
-    }
-
-    void StopWalk()
-    {
-        //if (Input.GetKeyDown(KeyCode.DownArrow))
-        //{
-        //    isWiggle = !isWiggle;
-        //    animator.SetBool("isWiggle", isWiggle);
-        //}
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    isTurning = !isTurning;
-        //    animator.SetBool("isTurning", isTurning);
-        //}
     }
 }

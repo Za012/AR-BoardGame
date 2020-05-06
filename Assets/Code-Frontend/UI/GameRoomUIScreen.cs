@@ -56,7 +56,6 @@ public abstract class GameRoomUIScreen : BasicUIScreen
                     playerList.text += pair.Key.NickName + "\t" + "\n";
                 }
             }
-
         }
     }
 }

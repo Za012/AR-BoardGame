@@ -9,7 +9,7 @@ public class InitGame : MonoBehaviour
     {
         if (Instance != null)
             return;
-            
+
         Instance = this;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         StartCoroutine(LoadGame());
@@ -30,18 +30,18 @@ public class InitGame : MonoBehaviour
     {
         Debug.Log("First Init");
         // Resources that needs to be loaded in before game starts
-                Scene s = SceneManager.GetSceneByName("UI");
-                SceneManager.SetActiveScene(s);
-                foreach (GameObject o in s.GetRootGameObjects())
-                {
-                    NetworkConnectionManager network = o.GetComponent<NetworkConnectionManager>();
-                    if (network != null)
-                    {
-                        Game.NETWORK = network;
-                        Game.NETWORK.ConnectToMaster();                        
-                        break;
-                    }
-                }
+        Scene s = SceneManager.GetSceneByName("UI");
+        SceneManager.SetActiveScene(s);
+        foreach (GameObject o in s.GetRootGameObjects())
+        {
+            NetworkConnectionManager network = o.GetComponent<NetworkConnectionManager>();
+            if (network != null)
+            {
+                Game.NETWORK = network;
+                Game.NETWORK.ConnectToMaster();
+                break;
+            }
+        }
         Debug.Log("Initialized");
     }
 }

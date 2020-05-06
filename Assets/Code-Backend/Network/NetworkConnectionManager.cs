@@ -45,7 +45,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Attempting connection..");
         StartCoroutine("ConnectionAttemptTimeout");
-  
+
         if (string.IsNullOrEmpty(SaveFile.GetInstance().MetaData.playerName))
         {
             UIManager.Instance.ActivateErrorScreen("NoPlayerName");
@@ -79,7 +79,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnDisconnected(cause);
         Debug.Log(cause);
-        if(cause != DisconnectCause.DisconnectByClientLogic)
+        if (cause != DisconnectCause.DisconnectByClientLogic)
         {
             UIManager.Instance.ActivateErrorScreen("Disconnected");
             isAttemptingConnection = false;

@@ -1,5 +1,5 @@
 ﻿
-public class BridgeMechanic : MechanicControl 
+public class BridgeMechanic : MechanicControl
 {
     public int numberOfMoves;
 

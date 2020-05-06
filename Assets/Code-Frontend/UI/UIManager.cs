@@ -24,8 +24,6 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-
-
     public void ActivateScreenOverlayed(BasicUIScreen screen)
     {
         if (overlayScreen.Find(x => x == screen))
@@ -43,7 +41,6 @@ public class UIManager : MonoBehaviour
         overlayScreen.Add(screen);
     }
 
-
     public void DeactivateOverlayed(BasicUIScreen screen)
     {
         BasicUIScreen foundScreen = overlayScreen.Find(x => x == screen);
@@ -51,17 +48,15 @@ public class UIManager : MonoBehaviour
         {
 
             foundScreen.gameObject.SetActive(false);
-        overlayScreen.Remove(screen);
+            overlayScreen.Remove(screen);
         }
     }
 
-
-
     public void ActivateScreen(BasicUIScreen screen)
     {
-        if(currentScreen != null)
+        if (currentScreen != null)
             currentScreen.gameObject.SetActive(false);
-        
+
         screen.gameObject.SetActive(true);
         try
         {

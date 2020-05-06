@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class ConnectionScreen : BasicUIScreen
 {
@@ -11,7 +8,7 @@ public class ConnectionScreen : BasicUIScreen
     public override void FillText()
     {
         connectText.text = LanguageManager.Instance.GetWord(connectText.name);
-        InvokeRepeating("Animation", 0.4f,0.4f);
+        InvokeRepeating("Animation", 0.4f, 0.4f);
     }
 
     public override void HandleError(string errorName)
